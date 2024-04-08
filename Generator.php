@@ -2,6 +2,8 @@
 
 namespace Loteria;
 
+// Essa classe gera os UUIDs (Identificador Único Universal)
+
 class Generator {
     public static function generateUUID() {
         $data = openssl_random_pseudo_bytes(16);
