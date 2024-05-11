@@ -33,8 +33,8 @@ for ($i = 0; $i < 6; $i++) {
 echo "\n";
 
 // Cria dois tickets com números apostados
-$ticket = new Ticket(Generator::generateUUID(), $sorteio, [1, 1, 1, 1, 1, 1,]);
-$ticket2 = new Ticket(Generator::generateUUID(), $sorteio, [1, 1, 1, 1, 1, 1,]);
+$ticket = new Ticket(Generator::generateUUID(), $sorteio, [8, 12, 59, 3, 19, 21,]);
+$ticket2 = new Ticket(Generator::generateUUID(), $sorteio, [1, 2, 3, 4, 5, 6,]);
 
 // Cria um novo apostador
 $apostador1 = new Gambler("João");
