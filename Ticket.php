@@ -31,8 +31,17 @@ class Ticket
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
     // Define o nome associado ao ticket
-    public function setName($nome)
+    public function setNome($nome)
     {
         $this->nome = $nome;
     }
@@ -42,15 +51,20 @@ class Ticket
         return $this->idSorteio;
     }
 
-    public function getNome()
+    public function setIdSorteio($idSorteio)
     {
-        return $this->nome;
+        $this->idSorteio = $idSorteio;
     }
 
     // Obtém os números apostados neste ticket
     public function getNumerosApostados()
     {
         return $this->numeros_apostados;
+    }
+
+    public function setNumerosApostados($numeros_apostados)
+    {
+        $this->numeros_apostados = $numeros_apostados;
     }
 
     // Verifica se os números apostados neste ticket foram sorteados

@@ -27,15 +27,30 @@ class Sorteio
         return $this->numeros_sorteados;
     }
 
+    public function setSortados($numeros_sorteados)
+    {
+        $this->numeros_sorteados = $numeros_sorteados;
+    }
+
     // Obtém o ID do sorteio
     public function getid()
     {
         return $this->id;
     }
 
+    public function setid($id)
+    {
+        $this->id = $id;
+    }
+
     // Obtém o valor do sorteio
     public function getValor()
     {
         return $this->valor;
+    }
+
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
     }
 }
