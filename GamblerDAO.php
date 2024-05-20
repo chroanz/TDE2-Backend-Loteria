@@ -6,15 +6,16 @@ use \PDO;
 use Conexao;
 use Loteria\Gambler;
 
-Class GamblerDAO {
-    public function create (Gambler $gambler)
+class GamblerDAO
+{
+    public function create(Gambler $gambler)
     {
         $conn = Conexao::getConn();
-        $stmt = $conn->prepare("INSERT INTO gambler (nome, valorGanho, apostas, numeros_apostados) VALUES (?, ?, ?, ?)");
-        $stmt->bindValue(1, $gambler->getNome());
-        $stmt->bindValue(2, $gambler->getValorGanho());
-        $stmt->bindValue(3, serialize($gambler->getApostas()));
-        $stmt->bindValue(4, serialize($gambler->getNumerosApostados()));
+        $stmt = $conn->prepare("INSERT INTO gambler (cpf,nome, valorGanho) VALUES (?, ?, ?)");
+        $stmt->bindValue(1, $gambler->getCpf());
+        $stmt->bindValue(2, $gambler->getNome());
+        $stmt->bindValue(3, $gambler->getValorGanho());
+
         $stmt->execute();
     }
 
@@ -30,19 +31,17 @@ Class GamblerDAO {
     public function update(Gambler $gambler)
     {
         $conn = Conexao::getConn();
-        $stmt = $conn->prepare("UPDATE gambler SET valorGanho = ?, apostas = ?, numeros_apostados = ? WHERE nome = ?");
+        $stmt = $conn->prepare("UPDATE gambler SET valorGanho = ? WHERE cpf = ?");
         $stmt->bindValue(1, $gambler->getValorGanho());
-        $stmt->bindValue(2, serialize($gambler->getApostas()));
-        $stmt->bindValue(3, serialize($gambler->getNumerosApostados()));
-        $stmt->bindValue(4, $gambler->getNome());
+        $stmt->bindValue(4, $gambler->getCpf());
         $stmt->execute();
     }
 
     public function delete(Gambler $gambler)
     {
         $conn = Conexao::getConn();
-        $stmt = $conn->prepare("DELETE FROM gambler WHERE nome = ?");
-        $stmt->bindValue(1, $gambler->getNome());
+        $stmt = $conn->prepare("DELETE FROM gambler WHERE cpf = ?");
+        $stmt->bindValue(1, $gambler->getCpf());
         $stmt->execute();
     }
 }

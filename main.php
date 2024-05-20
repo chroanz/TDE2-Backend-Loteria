@@ -17,7 +17,7 @@ use Loteria\TicketDAO;
 
 
 // Crie um objeto Sorteio
-$sorteio = new Sorteio(3, 100000);
+$sorteio = new Sorteio(rand(1, 10), 100000);
 
 // Crie um objeto SorteioDAO
 $sorteioDAO = new SorteioDAO();
@@ -26,10 +26,10 @@ $sorteioDAO = new SorteioDAO();
 $sorteioDAO->create($sorteio); // Crie um novo sorteio no banco de dados
 
 // Crie um objeto Gambler
-$gambler = new Gambler("João");
+$gambler = new Gambler("João", 00000000000);
 
 // Crie um objeto Ticket
-$ticket = new Ticket(1, $sorteio, [1, 2, 3, 4, 5, 6]);
+$ticket = new Ticket(1, $gambler, $sorteio, [1, 2, 3, 4, 5, 6]);
 
 $gamblerDAO = new GamblerDAO();
 $gamblerDAO->create($gambler); // Crie um novo apostador no banco de dados
