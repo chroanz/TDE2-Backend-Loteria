@@ -6,10 +6,8 @@ use \PDO;
 use Conexao;
 use Loteria\Gambler;
 
-class GamblerDAO
-{
-    public function create(Gambler $gambler)
-    {
+class GamblerDAO {
+    public function create(Gambler $gambler) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("INSERT INTO gambler (cpf,nome, valorGanho) VALUES (?, ?, ?)");
         $stmt->bindValue(1, $gambler->getCpf());
@@ -19,8 +17,7 @@ class GamblerDAO
         $stmt->execute();
     }
 
-    public function read()
-    {
+    public function read() {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("SELECT * FROM gambler");
         $stmt->execute();
@@ -28,8 +25,20 @@ class GamblerDAO
         return $result;
     }
 
-    public function update(Gambler $gambler)
-    {
+    public function readByCpf($cpf) {
+        $conn = Conexao::getConn();
+        $stmt = $conn->prepare("SELECT * FROM gambler WHERE cpf = ?");
+        $stmt->bindValue(1, $cpf);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $gambler = new Gambler($result['nome'], $result['cpf']);
+        $gambler->setValorGanho($result['valorGanho']);
+
+        return $gambler;
+    }
+
+    public function update(Gambler $gambler) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("UPDATE gambler SET valorGanho = ? WHERE cpf = ?");
         $stmt->bindValue(1, $gambler->getValorGanho());
@@ -37,8 +46,7 @@ class GamblerDAO
         $stmt->execute();
     }
 
-    public function delete(Gambler $gambler)
-    {
+    public function delete(Gambler $gambler) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("DELETE FROM gambler WHERE cpf = ?");
         $stmt->bindValue(1, $gambler->getCpf());

@@ -6,9 +6,8 @@ use \PDO;
 use Conexao;
 use Loteria\Sorteio;
 
-Class SorteioDAO {
-    public function create (Sorteio $sorteio)
-    {
+class SorteioDAO {
+    public function create(Sorteio $sorteio) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("INSERT INTO sorteio (id, valor, numeros_sorteados) VALUES (?, ?, ?)");
         $stmt->bindValue(1, $sorteio->getid());
@@ -17,8 +16,7 @@ Class SorteioDAO {
         $stmt->execute();
     }
 
-    public function read()
-    {
+    public function read() {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("SELECT * FROM sorteio");
         $stmt->execute();
@@ -26,8 +24,20 @@ Class SorteioDAO {
         return $result;
     }
 
-    public function update(Sorteio $sorteio)
-    {
+    public function readById($id) {
+        $conn = Conexao::getConn();
+        $stmt = $conn->prepare("SELECT * FROM sorteio WHERE id = ?");
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $sorteio = new Sorteio($result['id'], $result['valor']);
+        $sorteio->setSorteados(explode(",", $result['numeros_sorteados']));
+
+        return $sorteio;
+    }
+
+    public function update(Sorteio $sorteio) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("UPDATE sorteio SET valor = ?, numeros_sorteados = ? WHERE id = ?");
         $stmt->bindValue(1, $sorteio->getValor());
@@ -36,8 +46,7 @@ Class SorteioDAO {
         $stmt->execute();
     }
 
-    public function delete(Sorteio $sorteio)
-    {
+    public function delete(Sorteio $sorteio) {
         $conn = Conexao::getConn();
         $stmt = $conn->prepare("DELETE FROM sorteio WHERE id = ?");
         $stmt->bindValue(1, $sorteio->getid());
